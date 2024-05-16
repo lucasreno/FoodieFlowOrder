@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deploy
+  labels:
+    app: app-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-deploy
+  template:
+    metadata:
+      name: app-deploy
+      labels:
+        app: app-deploy
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: app-deploy
+          image: us-central1-docker.pkg.dev/foodieflow/ff-order/app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always

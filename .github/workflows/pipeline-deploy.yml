@@ -1,0 +1,60 @@
+name: Pipeline Deploy
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+env:
+  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GCP_REGION: ${{ secrets.GCP_REGION }}
+  GKE_CLUSTER_NAME: ${{ secrets.GKE_CLUSTER_NAME }}
+  REPOSITORY_NAME: 'ff-order'
+  GAR_ZONE: 'us-central1'
+  IMAGE: 'app'
+  IMAGE_TAG: 'latest'
+  ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+
+jobs:
+  pipeline-deploy:
+    name: Setup, Build, Publish and Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure GCP credentials
+        uses: google-github-actions/setup-gcloud@v2.1.0
+
+      - name: Authenticate GCP
+        uses: google-github-actions/auth@v2.1.2
+        with:
+          credentials_json: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      - name: Docker configuration
+        run: |
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$GAR_ZONE-docker.pkg.dev
+
+      - name: Set up GKE credentials
+        uses: google-github-actions/get-gke-credentials@v0
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER_NAME }}
+          location: ${{ env.GCP_REGION }}
+
+      - name: Build
+        run: |
+           docker build \
+             --tag "$GAR_ZONE-docker.pkg.dev/$GCP_PROJECT_ID/$REPOSITORY_NAME/$IMAGE:$IMAGE_TAG" \
+             --build-arg GITHUB_SHA="$GITHUB_SHA" \
+             --build-arg GITHUB_REF="$GITHUB_REF" \
+
+      - name: Deploy
+          run: |-
+            kubectl apply -f prod/deploy.yml
+            kubectl get pods
