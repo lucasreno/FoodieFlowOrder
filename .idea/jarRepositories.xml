@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="jcenter-snapshots" />
+      <option name="name" value="jcenter" />
+      <option name="url" value="https://jcenter.bintray.com/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="springdoc" />
+      <option name="name" value="springdoc" />
+      <option name="url" value="https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="spock" />
+      <option name="name" value="spock" />
+      <option name="url" value="https://mvnrepository.com/artifact/org.spockframework/spock-spring" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jacoco" />
+      <option name="name" value="jacoco" />
+      <option name="url" value="https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="h2" />
+      <option name="name" value="h2" />
+      <option name="url" value="https://mvnrepository.com/artifact/com.h2database/h2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="mvnrepo" />
+      <option name="name" value="mvnrepo" />
+      <option name="url" value="https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="spock" />
+      <option name="name" value="spock" />
+      <option name="url" value="https://mvnrepository.com/artifact/org.spockframework/spock-core" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="mvnrepository" />
+      <option name="name" value="springdoc" />
+      <option name="url" value="https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui" />
+    </remote-repository>
+  </component>
+</project>
