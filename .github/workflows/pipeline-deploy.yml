@@ -55,6 +55,6 @@ jobs:
              --build-arg GITHUB_REF="$GITHUB_REF" \
 
       - name: Deploy
-          run: |-
-            kubectl apply -f prod/deploy.yml
-            kubectl get pods
+        run: |-
+          kubectl apply -f prod/deploy.yml
+          kubectl get pods
