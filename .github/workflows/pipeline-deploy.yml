@@ -63,5 +63,5 @@ jobs:
 
       - name: Deploy
         run: |-
-          kubectl apply -f prod/deploy.yml
+          kubectl apply -f ./prod/deploy.yaml
           kubectl get pods
