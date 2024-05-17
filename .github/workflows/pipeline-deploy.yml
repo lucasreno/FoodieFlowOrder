@@ -57,6 +57,10 @@ jobs:
              --build-arg GITHUB_REF="$GITHUB_REF" \
              .
 
+      - name: Push
+        run: |
+          docker push "$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$REPOSITORY_NAME/$IMAGE:$IMAGE_TAG"
+
       - name: Deploy
         run: |-
           kubectl apply -f prod/deploy.yml
