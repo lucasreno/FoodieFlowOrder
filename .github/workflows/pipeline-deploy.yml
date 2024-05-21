@@ -84,5 +84,7 @@ jobs:
           kubectl apply -f ./prod/deploy.yaml
           kubectl get pods
 
-      - name: Get pods
-        run: kubectl get pods
+      - name: Expose service
+        run: |-
+          kubectl apply -f ./prod/service.yaml
+          kubectl get services
