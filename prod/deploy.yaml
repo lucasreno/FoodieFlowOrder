@@ -18,7 +18,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: foodieflow-order
-          image: us-central1-docker.pkg.dev/foodieflow/ff-order/app:latest
+          image: us-west1-docker.pkg.dev/foodieflow/ff-order/app:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
