@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 class FoodieFlowOrderApplication {
 
 	static void main(String[] args) {
+		System.out.print("Variables: ")
+		System.out.println(System.getenv())
 		SpringApplication.run(FoodieFlowOrderApplication, args)
 	}
 

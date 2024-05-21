@@ -1,28 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deploy
+  name: foodieflow-order
   labels:
-    app: app-deploy
+    app: foodieflow-order
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app-deploy
+      app: foodieflow-order
   template:
     metadata:
-      name: app-deploy
+      name: foodieflow-order
       labels:
-        app: app-deploy
+        app: foodieflow-order
     spec:
       automountServiceAccountToken: false
       containers:
-        - name: app-deploy
+        - name: foodieflow-order
           image: us-central1-docker.pkg.dev/foodieflow/ff-order/app:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               protocol: TCP
+          env:
+            - name: POSTGRES_USER
+              value: ${{ secrets.POSTGRES_USER }}
+            - name: POSTGRES_PASSWORD
+              value: ${{ secrets.POSTGRES_PASSWORD }}
+            - name: POSTGRES_DB
+              value: ${{ secrets.POSTGRES_DB }}
+            - name: POSTGRES_HOST
+              value: ${{ secrets.POSTGRES_HOST }}
+            - name: POSTGRES_PORT
+              value: ${{ secrets.POSTGRES_PORT }}
           resources:
             requests:
               memory: "64Mi"
