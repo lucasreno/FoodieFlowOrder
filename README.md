@@ -1,3 +1,4 @@
+![ff-logo-180](https://github.com/lucasreno/FoodieFlowOrder/assets/62509668/0b815640-6948-4f75-bcf1-03eca61a31d1)
 # Foodie Flow Order
 
 Projeto desenvolvido para entrega do Tech Challenge da Pos Tech - Software Architecture (Fase 4).
