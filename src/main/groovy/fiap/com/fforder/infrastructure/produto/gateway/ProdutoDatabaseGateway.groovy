@@ -26,7 +26,8 @@ class ProdutoDatabaseGateway implements ProdutoGateway{
     @Override
     Produto update(Produto produto) {
         CategoriaSchema categoriaSchema = new CategoriaSchema(id: produto.categoria.id)
-        ProdutoSchema produtoSchema = new ProdutoSchema(id: produto.id, nome: produto.nome, descricao: produto.descricao, preco: produto.preco, categoria: categoriaSchema)
+        Set<IngredienteSchema> ingredientesSchema = produto.ingredientes.collect { new IngredienteSchema(id: it.id) }
+        ProdutoSchema produtoSchema = new ProdutoSchema(id: produto.id, nome: produto.nome, descricao: produto.descricao, preco: produto.preco, categoria: categoriaSchema, ingredientes: ingredientesSchema)
         produtoRepository.save(produtoSchema).toProduto()
     }
 

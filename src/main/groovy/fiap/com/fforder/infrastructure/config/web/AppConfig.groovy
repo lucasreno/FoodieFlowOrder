@@ -4,6 +4,7 @@ import fiap.com.fforder.entity.categoria.gateway.CategoriaGateway
 import fiap.com.fforder.entity.cliente.gateway.ClienteGateway
 import fiap.com.fforder.entity.imagem.gateway.ImagemGateway
 import fiap.com.fforder.entity.ingrediente.gateway.IngredienteGateway
+import fiap.com.fforder.entity.pedido.gateway.PedidoGateway
 import fiap.com.fforder.entity.produto.gateway.ProdutoGateway
 import fiap.com.fforder.entity.status.gateway.StatusGateway
 import fiap.com.fforder.infrastructure.cliente.gateway.ClienteDatabaseGateway
@@ -12,6 +13,7 @@ import fiap.com.fforder.infrastructure.categoria.gateway.CategoriaDatabaseGatewa
 import fiap.com.fforder.infrastructure.imagem.gateway.ImagemDatabaseGateway
 import fiap.com.fforder.infrastructure.ingrediente.gateway.IngredienteDatabaseGateway
 import fiap.com.fforder.infrastructure.initializer.*
+import fiap.com.fforder.infrastructure.pedido.gateway.PedidoDatabaseGateway
 import fiap.com.fforder.infrastructure.produto.gateway.ProdutoDatabaseGateway
 import fiap.com.fforder.infrastructure.status.gateway.StatusDatabaseGateway
 import fiap.com.fforder.usecase.categoria.*
@@ -23,6 +25,14 @@ import fiap.com.fforder.usecase.imagem.FindImagemByProdutoUseCase
 import fiap.com.fforder.usecase.imagem.FindImagemUseCase
 import fiap.com.fforder.usecase.imagem.UpdateImagemUseCase
 import fiap.com.fforder.usecase.ingrediente.*
+import fiap.com.fforder.usecase.pedido.CreatePedidoUseCase
+import fiap.com.fforder.usecase.pedido.DeletePedidoUseCase
+import fiap.com.fforder.usecase.pedido.FindAllPedidoUseCase
+import fiap.com.fforder.usecase.pedido.FindPedidoByClienteUseCase
+import fiap.com.fforder.usecase.pedido.FindPedidoByCodigoUseCase
+import fiap.com.fforder.usecase.pedido.FindPedidoByStatusUseCase
+import fiap.com.fforder.usecase.pedido.FindPedidoUseCase
+import fiap.com.fforder.usecase.pedido.UpdatePedidoUseCase
 import fiap.com.fforder.usecase.produto.CreateProdutoUseCase
 import fiap.com.fforder.usecase.produto.DeleteProdutoUseCase
 import fiap.com.fforder.usecase.produto.FindProdutoByCategoriaUseCase
@@ -64,6 +74,11 @@ class AppConfig {
     @Bean
     ImagemInitializer imagemInitializer(CreateImagemUseCase createImagemUseCase, FindProdutoByNomeUseCase findProdutoByNomeUseCase) {
         new ImagemInitializer(createImagemUseCase, findProdutoByNomeUseCase)
+    }
+
+    @Bean
+    PedidoInitializer pedidoInitializer(CreatePedidoUseCase createPedidoUseCase, FindProdutoByNomeUseCase findProdutoByNomeUseCase, FindStatusByNomeUseCase findStatusByNomeUseCase, FindClienteByNomeUseCase findClienteByNomeUseCase, FindAllPedidoUseCase findAllPedidoUseCase) {
+        new PedidoInitializer(createPedidoUseCase, findProdutoByNomeUseCase, findStatusByNomeUseCase, findClienteByNomeUseCase, findAllPedidoUseCase)
     }
 
     @Bean
@@ -280,6 +295,54 @@ class AppConfig {
     UpdateImagemUseCase updateImagemUseCase(ImagemRepository imagemRepository) {
         ImagemGateway imagemGateway = new ImagemDatabaseGateway(imagemRepository)
         new UpdateImagemUseCase(imagemGateway)
+    }
+
+    @Bean
+    CreatePedidoUseCase createPedidoUseCase(PedidoRepository pedidoRepository) {
+        PedidoGateway pedidoGateway = new PedidoDatabaseGateway(pedidoRepository)
+        new CreatePedidoUseCase(pedidoGateway)
+    }
+
+    @Bean
+    DeletePedidoUseCase deletePedidoUseCase(PedidoRepository pedidoRepository) {
+        PedidoGateway pedidoGateway = new PedidoDatabaseGateway(pedidoRepository)
+        new DeletePedidoUseCase(pedidoGateway)
+    }
+
+    @Bean
+    FindAllPedidoUseCase findAllPedidoUseCase(PedidoRepository pedidoRepository) {
+        PedidoGateway pedidoGateway = new PedidoDatabaseGateway(pedidoRepository)
+        new FindAllPedidoUseCase(pedidoGateway)
+    }
+
+    @Bean
+    FindPedidoByClienteUseCase findPedidoByClienteUseCase(PedidoRepository pedidoRepository) {
+        PedidoGateway pedidoGateway = new PedidoDatabaseGateway(pedidoRepository)
+        new FindPedidoByClienteUseCase(pedidoGateway)
+    }
+
+    @Bean
+    FindPedidoByCodigoUseCase findPedidoByCodigoUseCase(PedidoRepository pedidoRepository) {
+        PedidoGateway pedidoGateway = new PedidoDatabaseGateway(pedidoRepository)
+        new FindPedidoByCodigoUseCase(pedidoGateway)
+    }
+
+    @Bean
+    FindPedidoByStatusUseCase findPedidoByStatusUseCase(PedidoRepository pedidoRepository) {
+        PedidoGateway pedidoGateway = new PedidoDatabaseGateway(pedidoRepository)
+        new FindPedidoByStatusUseCase(pedidoGateway)
+    }
+
+    @Bean
+    FindPedidoUseCase findPedidoUseCase(PedidoRepository pedidoRepository) {
+        PedidoGateway pedidoGateway = new PedidoDatabaseGateway(pedidoRepository)
+        new FindPedidoUseCase(pedidoGateway)
+    }
+
+    @Bean
+    UpdatePedidoUseCase updatePedidoUseCase(PedidoRepository pedidoRepository) {
+        PedidoGateway pedidoGateway = new PedidoDatabaseGateway(pedidoRepository)
+        new UpdatePedidoUseCase(pedidoGateway)
     }
 }
 
