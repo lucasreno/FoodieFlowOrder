@@ -25,6 +25,9 @@ específico para gerenciar a infraestrutura.
 
 Este projeto visa criar um microsserviço que gerencie os pedidos de um restaurante. O microsserviço deve ser capaz de:
 
+## Cobertura de Testes
+
+
 #### Stack utilizada:
 
 - Maven
