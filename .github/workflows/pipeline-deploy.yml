@@ -46,9 +46,6 @@ jobs:
           cluster_name: ${{ env.GKE_CLUSTER_NAME }}
           location: ${{ env.GCP_REGION }}
 
-      - name: Get pods
-        run: kubectl get pods
-
       - name: Build
         run: |
            docker build \
@@ -65,3 +62,6 @@ jobs:
         run: |-
           kubectl apply -f ./prod/deploy.yaml
           kubectl get pods
+
+      - name: Get pods
+        run: kubectl get pods
