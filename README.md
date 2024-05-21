@@ -26,6 +26,8 @@ específico para gerenciar a infraestrutura.
 Este projeto visa criar um microsserviço que gerencie os pedidos de um restaurante. O microsserviço deve ser capaz de:
 
 ## Cobertura de Testes
+Alcançado 90% de cobertura de testes.
+![Testes](https://github.com/lucasreno/FoodieFlowOrder/assets/62509668/5a1bd53c-b189-46ef-98d0-5bea6b4d4f09)
 
 
 #### Stack utilizada:
