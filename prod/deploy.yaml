@@ -25,15 +25,30 @@ spec:
               protocol: TCP
           env:
             - name: POSTGRES_USER
-              value: ${{ secrets.POSTGRES_USER }}
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
-              value: ${{ secrets.POSTGRES_PASSWORD }}
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
-              value: ${{ secrets.POSTGRES_DB }}
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_DB
             - name: POSTGRES_HOST
-              value: ${{ secrets.POSTGRES_HOST }}
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_HOST
             - name: POSTGRES_PORT
-              value: ${{ secrets.POSTGRES_PORT }}
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PORT
           resources:
             requests:
               memory: "512Mi"

@@ -30,6 +30,8 @@ jobs:
 
       - name: Configure GCP credentials
         uses: google-github-actions/setup-gcloud@v2.1.0
+        with:
+          project_id: ${{ env.GCP_PROJECT_ID }}
 
       - name: Authenticate GCP
         uses: google-github-actions/auth@v2.1.2
@@ -38,7 +40,7 @@ jobs:
 
       - name: Docker configuration
         run: |
-          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$GCP_REGION-docker.pkg.dev
+          gcloud auth configure-docker $GCP_REGION-docker.pkg.dev
 
       - name: Set up GKE credentials
         uses: google-github-actions/get-gke-credentials@v2.1.0
@@ -48,15 +50,34 @@ jobs:
 
       - name: Build
         run: |
-           docker build \
-             --tag "$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$REPOSITORY_NAME/$IMAGE:$IMAGE_TAG" \
-             --build-arg GITHUB_SHA="$GITHUB_SHA" \
-             --build-arg GITHUB_REF="$GITHUB_REF" \
-             .
+          docker build \
+            --tag "$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$REPOSITORY_NAME/$IMAGE:$IMAGE_TAG" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA" \
+            --build-arg GITHUB_REF="$GITHUB_REF" \
+            .
 
       - name: Push
         run: |
           docker push "$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$REPOSITORY_NAME/$IMAGE:$IMAGE_TAG"
+
+      - name: Create Kubernetes Secret
+        run: |
+          echo "Creating Kubernetes Secret file..."
+          echo "
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: postgres-secret
+          type: Opaque
+          data:
+            POSTGRES_USER: $(echo -n ${{ secrets.POSTGRES_USER }} | base64)
+            POSTGRES_PASSWORD: $(echo -n ${{ secrets.POSTGRES_PASSWORD }} | base64)
+            POSTGRES_DB: $(echo -n ${{ secrets.POSTGRES_DB }} | base64)
+            POSTGRES_HOST: $(echo -n ${{ secrets.POSTGRES_HOST }} | base64)
+            POSTGRES_PORT: $(echo -n ${{ secrets.POSTGRES_PORT }} | base64)
+          " > postgres-secret.yaml
+
+          kubectl apply -f postgres-secret.yaml
 
       - name: Deploy
         run: |-
