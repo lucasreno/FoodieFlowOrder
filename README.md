@@ -46,6 +46,8 @@ Alcançado 90% de cobertura de testes.<br>
 - Github Actions
 
 ## Clean Architecture
+![diagrama-foodie-flow](https://github.com/lucasreno/FoodieFlowOrder/assets/62509668/3b959abe-924c-424a-84b5-ab0b1dc11730)
+
 
 ## Deploy
 
